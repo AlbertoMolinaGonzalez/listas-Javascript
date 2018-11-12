@@ -76,15 +76,7 @@ function pollNumber (){
  }
 
  function toString(lista){
- 	var str = "";
- 	if (!isEmpty(lista)){
- 		var length = size(lista);
- 		for (var i=0; i<length-1;i++){
- 			str = str + lista[i] + " - ";
- 		}
- 		str = str + lista[i];
- 	}
- 	return str;
+   return lista.join(" - ");
  }
 
  function capacity(lista){
@@ -121,53 +113,103 @@ function pollNumber (){
  	return last;
  }
 
- function set(lista, elem, index){
-   elem = parseInt(elem);
+ function get(lista, index){
    index = parseInt(index);
    var aux;
-   if (isNaN(elem)){
+   var length;
+   length = size(lista);
+   if (isNaN(index)){
      throw "El elemento no es un numero";
    }
    if (isEmpty(lista)){
      throw "No se puede reemplazar, esta la lista vacia";
    }
-   aux = lista[index];
-   lista[index] = elem;
+   if (index>length){
+     throw "El indice es mayor que la lista";
+   }else{
+     aux = lista[index];
+   }
    return aux;
+ }
+
+ function remove(lista,index){
+   index = parseInt(index);
+   var length = size(lista);
+   if (isEmpty(lista)){
+     throw "No se puede borrar, la lista esta vacia";
+   }else{
+     if (index<length){
+       var elemento;
+       elemento = lista[index];
+       if (index > -1) {
+         array.splice(index, 1);
+       }
+     }else{
+       throw "El indice esta fuera del rango";
+     }
+   }
+   return elemento;
+ }
+
+ function removeElement(lista, elemento){
+   var elemento = parseInt(elem);
+   var length = size(lista);
+   var enco = false;
+   if (!isNaN(elemento)) {
+     for (var i=0; i<length ; i++) {
+       if (lista[i] === elemento) {
+         enco = true;
+         for (var j=i; j<length ; j++) {
+           lista[j]= lista[j+1];
+         }
+       }
+     }
+   } else {
+     throw "El elemento no es numerico";
+   }
+   return enco;
  }
 
 
  function testlista(){
- 	//var queue = create ();
- 	var lista=[];
- 	console.log ("Prueba de capacity: " + capacity(lista));
- 	console.log("prueba de isEmpty: " + isEmpty(lista));
- 	console.log("tamaño: " + size(lista));
+   var lista=[];
+  	console.log ("Prueba de capacity: " + capacity(lista));
+  	console.log("prueba de isEmpty: " + isEmpty(lista));
+  	console.log("tamaño: " + size(lista));
 
- 	try {
-	 	for (var i=0; i<numeroElementos; i++){
-	 		console.log("Nº de elementos: " + add(lista,i*10));
-	 	}
-	 	add(lista,i);
- 	} catch (err) {
- 		console.log(err);
- 	}
+  /*	try {
+ 	 	for (var i=0; i<numeroElementos; i++){
+ 	 		console.log("Nº de elementos: " + add(lista,i*10));
+ 	 	}
+ 	 	add(lista,i); //It will generate an exception.
+  	} catch (err) {
+  		console.log(err);
+  	}*/
+   console.log("Nº de elementos: " + add(lista,8));
+   console.log("Nº de elementos: " + add(lista,3));
+   console.log("Nº de elementos: " + add(lista,5));
+   console.log("Nº de elementos: " + add(lista,0));
+   console.log("Nº de elementos: " + add(lista,1));
+  	console.log ("La lista es: " + toString(lista));
+  	console.log ("primer elemento: " + firstElement(lista));
+  	console.log ("Segundo elemento: " + lastElement(lista));
+   console.log ("prueba de set: " + set(lista,8,0));
+   console.log ("La lista es: " + toString(lista));
+   console.log ("eliminacion del elemento 3: " + remove(lista,1));
+   console.log ("La lista entera es: " + toString(lista));
+   console.log ("prueba de remove elemento: " + removeElement(lista, 3));
+   console.log ("La lista entera es: " + toString(lista));
+   console.log ("Prueba de la funcion get: " + get(lista,3));
 
- 	console.log ("La lista es: " + toString(lista));
- 	console.log ("primer elemento: " + firstElement(lista));
- 	console.log ("Segundo elemento: " + lastElement(lista));
-  console.log ("prueba de set: " + set(lista,8,0));
-  console.log ("La lista es: " + toString(lista));
-  console.log ("prueba de set: " + get(lista,0));
 
- 	try {
-	 	while (true){
-	 		console.log ("Prueba de que salte excepcion en la lista: " + toString(lista));
-	 	}
- 	} catch (err) {
- 		console.log(err);
- 	}
+  	try {
+ 	 	while (true){
+ 	 		console.log ("Prueba de que salte excepcion en la lista: " + toString(lista));
+ 	 	}
+  	} catch (err) {
+  		console.log(err);
+  	}
 
- 	console.log ("La lista es: " + toString(lista));
- }
+  	console.log ("La lista es: " + toString(lista));
+  }
 window.onload = testlista;

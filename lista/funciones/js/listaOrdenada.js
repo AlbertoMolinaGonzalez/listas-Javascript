@@ -62,24 +62,6 @@ function pollNumber (){
  	return length;
  }
 
- function burbuja(lista)
- {
-   var length=size(lista);
-   for(var i=1;i<length;i++)
-   {
-     for(var j=0;j<(length-i);j++)
-     {
-       if(lista[j]>lista[j+1])
-       {
-         k=lista[j+1];
-         lista[j+1]=lista[j];
-         lista[j]=k;
-       }
-     }
-   }
-   return lista;
- }
-
  function add(lista,elem){
  	elem = parseInt(elem);
  	if (isNaN(elem)) {
@@ -90,20 +72,12 @@ function pollNumber (){
  	} else {
  		throw "La lista esta llena, no puedes añadir mas";
  	}
-  burbuja(lista);
+  lista.sort();
  	return size(lista);
  }
 
  function toString(lista){
- 	var str = "";
- 	if (!isEmpty(lista)){
- 		var length = size(lista);
- 		for (var i=0; i<length-1;i++){
- 			str = str + lista[i] + " - ";
- 		}
- 		str = str + lista[i];
- 	}
- 	return str;
+   return lista.join(" - ");
  }
 
  function capacity(lista){
@@ -140,19 +114,23 @@ function pollNumber (){
  	return ultimo;
  }
 
- function set(lista, elem, index){
- 	elem = parseInt(elem);
- 	index = parseInt(index);
- 	var aux;
- 	if (isNaN(elem)){
- 		throw "El elemento no es un numero";
- 	}
- 	if (isEmpty(lista)){
- 		throw "No se puede reemplazar, esta la lista vacia";
- 	}
- 	aux = lista[index];
- 	lista[index] = elem;
- 	return aux;
+ function get(lista, index){
+   index = parseInt(index);
+   var aux;
+   var length;
+   length = size(lista);
+   if (isNaN(index)){
+     throw "El elemento no es un numero";
+   }
+   if (isEmpty(lista)){
+     throw "No se puede reemplazar, esta la lista vacia";
+   }
+   if (index>length){
+     throw "El indice es mayor que la lista";
+   }else{
+     aux = lista[index];
+   }
+   return aux;
  }
 
  function remove(lista,index){
@@ -174,8 +152,26 @@ function pollNumber (){
    return elemento;
  }
 
+ function removeElement(lista, elemento){
+   var elemento = parseInt(elem);
+   var length = size(lista);
+   var enco = false;
+   if (!isNaN(elemento)) {
+     for (var i=0; i<length ; i++) {
+       if (lista[i] === elemento) {
+         enco = true;
+         for (var j=i; j<length ; j++) {
+           lista[j]= lista[j+1];
+         }
+       }
+     }
+   } else {
+     throw "El elemento no es numerico";
+   }
+   return enco;
+ }
+
  function testlista(){
- 	//var queue = create ();
  	var lista=[];
  	console.log ("Prueba de capacity: " + capacity(lista));
  	console.log("prueba de isEmpty: " + isEmpty(lista));
@@ -199,11 +195,11 @@ function pollNumber (){
  	console.log ("Segundo elemento: " + lastElement(lista));
   console.log ("prueba de set: " + set(lista,8,0));
   console.log ("La lista es: " + toString(lista));
-  console.log ("prueba de set: " + get(lista,0));
   console.log ("eliminacion del elemento 3: " + remove(lista,1));
   console.log ("La lista entera es: " + toString(lista));
   console.log ("prueba de remove elemento: " + removeElement(lista, 3));
   console.log ("La lista entera es: " + toString(lista));
+  console.log ("Prueba de la funcion get: " + get(lista,3));
 
  	try {
 	 	while (true){

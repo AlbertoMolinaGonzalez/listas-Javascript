@@ -69,25 +69,6 @@ function size(lista){
 	return length;
 }
 
-
-function burbuja(lista)
-{
-  var length=size(lista);
-  for(var i=1;i<length;i++)
-  {
-    for(var j=0;j<(length-i);j++)
-    {
-      if(lista[j]>lista[j+1])
-      {
-        k=lista[j+1];
-        lista[j+1]=lista[j];
-        lista[j]=k;
-      }
-    }
-  }
-  return lista;
-}
-
 function add(lista, elem){
 	elem = parseInt(elem);
 	if (isNaN(elem)){
@@ -98,7 +79,6 @@ function add(lista, elem){
 	}else {
 		throw "la lista esta llena, no puedes introducir el elemento";
 	}
-  burbuja(lista);
 	return size(lista)
 }
 
@@ -140,6 +120,21 @@ function removeElement(lista,elem) {
 	return enco;
  }
 
+function set(lista, elem, index){
+	elem = parseInt(elem);
+	index = parseInt(index);
+	var aux;
+	if (isNaN(elem)){
+		throw "El elemento no es un numero";
+	}
+	if (isEmpty(lista)){
+		throw "No se puede reemplazar, esta la lista vacia";
+	}
+	aux = lista[index];
+	lista[index] = elem;
+	return aux;
+}
+
 function toString(lista){
 	var string = "";
 	if (!isEmpty(lista)){
@@ -167,22 +162,41 @@ function clear(lista){
 }
 
 function get(lista, index){
-  index = parseInt(index);
-  var aux;
-  var length;
-  length = size(lista);
-  if (isNaN(index)){
-    throw "El elemento no es un numero";
-  }
-  if (isEmpty(lista)){
-    throw "No se puede reemplazar, esta la lista vacia";
-  }
-  if (index>length){
-    throw "El indice es mayor que la lista";
-  }else{
-    aux = lista[index];
-  }
-  return aux;
+	index = parseInt(index);
+	var aux;
+	var length;
+	length = size(lista);
+	if (isNaN(index)){
+		throw "El elemento no es un numero";
+	}
+	if (isEmpty(lista)){
+		throw "No se puede reemplazar, esta la lista vacia";
+	}
+	if (index>length){
+		throw "El indice es mayor que la lista";
+	}else{
+		aux = lista[index];
+	}
+	return aux;
+}
+
+function addAt(lista, elemento, index){
+	elemento = parseInt(elemento);
+	var lenght = size(lista);
+	if (isNaN(elemento)){
+		throw "El elemento a añadir no es numerico";
+	}
+	if (index>lenght){
+		throw "El indice es mayor que el tamaño de la lista";
+	}
+	if (isFull(lista)){
+		throw "La lista esta llena no puedes añadir mas elementos";
+	}else{
+		lista[index] = elemento;
+		for (var i=0; i<length;i++){
+			lista[i] = lista[i+1];
+		}
+	}
 }
 
  function testlista(){
@@ -208,7 +222,7 @@ function get(lista, index){
 	console.log ("prueba de remove elemento: " + removeElement(lista, 3));
 	console.log ("La lista entera es: " + toString(lista));
 	console.log ("La lista entera es: " + addAt(lista,2,3));
-  console.log ("Prueba de la funcion get: " + get(lista,3));
+	console.log ("Prueba de la funcion get: " + get(lista,3));
 
  }
 window.onload = testlista;
