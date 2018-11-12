@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Lista ordenada sin funciones</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<h1>Lista ordenada sin funciones</h1><br>
+	<p>Introduce un numero para añadir a la lista</p>
+	<input type="text" id="num" placeholder="Introduce un entero" onfocus="cleanData()">
+	<button id="addButton" onclick="addNumber(document getElementById ('num').value);">Añade número</button>
+	<button id="pollButton" onclick="pollNumber ();">Consume número</button>
+
+	<br/>
+	<br/>
+
+	<p id="error"></p>
+	<div id="lista">
+	</div>
+	<script src="js/listaFunciones.js"></script>
+</body>
+</html>
